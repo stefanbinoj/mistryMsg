@@ -7,7 +7,7 @@ import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
 export async function POST(req:Request){
     await dbConnect()
     try {
-        const {username,password,email} =await req.json()
+        const {username,password,email} = await req.json()
         const existingUserVerifiedByUsername  = await UserModel.findOne({username , isVerified :true});
 
         //verification expiry
@@ -35,10 +35,10 @@ export async function POST(req:Request){
             existingUserByEmail.password=hashedPassword;
             existingUserByEmail.verificationCode=verifyCode;
             existingUserByEmail.verificationCodeExpiry=expiryDate;
-
             await existingUserByEmail.save();
 
         }else{
+
             const hashedPassword = await bcrypt.hash(password,3);
             const newUser = new UserModel({
                 username,email,password : hashedPassword,
