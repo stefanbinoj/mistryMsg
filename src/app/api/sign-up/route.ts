@@ -9,7 +9,6 @@ export async function POST(req:Request){
     try {
         const {username,password,email} = await req.json()
         const existingUserVerifiedByUsername  = await UserModel.findOne({username , isVerified :true});
-
         //verification expiry
         const expiryDate = new Date();
             expiryDate.setHours(expiryDate.getHours()+1);
@@ -23,8 +22,10 @@ export async function POST(req:Request){
         }
 
         const existingUserByEmail = await UserModel.findOne({email});
-
+        console.log(existingUserByEmail)
+    
         if(existingUserByEmail){
+
             if(existingUserByEmail.isVerified){
                 return Response.json({
                     success:false,
@@ -38,7 +39,6 @@ export async function POST(req:Request){
             await existingUserByEmail.save();
 
         }else{
-
             const hashedPassword = await bcrypt.hash(password,3);
             const newUser = new UserModel({
                 username,email,password : hashedPassword,
@@ -65,7 +65,7 @@ export async function POST(req:Request){
         return Response.json(
             {
                 success:true,
-                message:"Email sent"+emailResponse.message
+                message:"Email sented "+emailResponse.message
             },{
                 status:200
             }
