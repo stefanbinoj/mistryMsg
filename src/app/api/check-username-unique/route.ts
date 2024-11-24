@@ -13,7 +13,7 @@ export async function GET(request:Request) {
         const {searchParams} = new URL(request.url);
         const queryParams ={username : searchParams.get('username')};
         const result = usernameQuerySchema.safeParse(queryParams);
-        console.log("Name checking "+result);
+        console.log("Name checking "+JSON.stringify(result));
         if(!result.success){
             const usernameError = result.error.format().username?._errors || []
             return Response.json({
@@ -23,7 +23,8 @@ export async function GET(request:Request) {
             },{status:400}) 
 
         }else{
-            const {username} = result.data
+            const {username} = queryParams
+            console.log(username)
             const existingVerifiedUser  = await UserModel.findOne({username , isVerified : true})
             if(existingVerifiedUser){
                 return Response.json({

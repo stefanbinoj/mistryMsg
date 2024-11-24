@@ -24,7 +24,7 @@ const page = () => {
   const [isCheckingUsername , setIsCheckingUsername] = useState(false)
   const [isSubmitting , setIsSubmitting] = useState(false);
   
-  const debouncedUsername = useDebounceValue(username,500)
+  const debouncedUsername = useDebounceValue(username,500000)
   const { toast } = useToast()
   const router = useRouter()
 
@@ -40,10 +40,11 @@ const page = () => {
   useEffect(()=>{
     const checkUsernameUnique = async() =>{
       if(debouncedUsername){
+        console.log("Username debounce is : ",debouncedUsername)
         setIsCheckingUsername(true)
         setUsernameMessage('');
         try {
-          const response = await axios.get(`/api/check-username-unique?username=${debouncedUsername}`)
+          const response = await axios.get(`/api/check-username-unique?username=${username}`)
           console.log(response)
           setUsernameMessage(response.data.message)
         } catch (error) {
@@ -72,7 +73,7 @@ const page = () => {
       setIsSubmitting(false)
 
     } catch (error) {
-      console.error("error in signup of user " , error)
+      console.log("error in signup of user " , error)
       const axiosError = error as AxiosError<ApiResponse>;
       let errorMessage = axiosError.response?.data.message;
       toast:({
@@ -105,6 +106,7 @@ const page = () => {
                   field.onChange(e);
                   setUsername(e.target.value);
                 }}/>
+                {isCheckingUsername && <Loader2 className="mr-4 h-4 w-4 animate-spin" />}
                 <FormMessage />
               </FormItem>
             )}
