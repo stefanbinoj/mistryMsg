@@ -68,14 +68,14 @@ const page = () => {
         title:'Success',
         description:response.data.message
       })
-      router.replace(`/verify/?username=${username}`)
+      router.replace(`/verify/${username}`)
       setIsSubmitting(false)
 
     } catch (error) {
       console.log("error in signup of user " , error)
       const axiosError = error as AxiosError<ApiResponse>;
       let errorMessage = axiosError.response?.data.message;
-      toast:({
+      toast({
         title:"Error",
         description : errorMessage,
         variant: "destructive"
@@ -145,14 +145,7 @@ const page = () => {
             }</Button>
         </form>
       </Form>
-      <div className="text-center mt-4">
-        <p>
-          Not a member yet?{' '}
-          <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
-            Sign up
-          </Link>
-        </p>
-      </div>
+      
     </div>
   </div>
 );
