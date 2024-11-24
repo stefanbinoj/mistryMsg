@@ -112,7 +112,7 @@ const page = () => {
             )}
           />
           {isCheckingUsername && <Loader2 className="mr-4 h-4 w-4 animate-spin" />}
-                <p className={`text-sm ${usernameMessage ==="Username is unique" ? 'text-green-500' : 'text-red-500'}`}>test : {usernameMessage}</p>
+          {usernameMessage.length>0 ?<p className={`text-sm ${usernameMessage ==="Username is unique" ? 'text-green-500' : 'text-red-500'}`}>test : {usernameMessage}</p>: ''}
                 
           <FormField
             name="email"
@@ -141,7 +141,7 @@ const page = () => {
               <>
                 <Loader2 className="mr-4 h-4 w-4 animate-spin" /> Please wait
               </>
-            ) : ("Sign IN") 
+            ) : ("Sign Up") 
             }</Button>
         </form>
       </Form>
