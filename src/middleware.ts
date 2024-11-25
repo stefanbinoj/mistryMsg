@@ -5,8 +5,12 @@ import { getToken } from "next-auth/jwt"
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-    const token =await getToken({req:request});
+    const secret = process.env.NEXT_AUTH_SECRET
+    const token =await getToken({req:request , secret});
     const url = request.nextUrl
+    console.log("req inside middlware is : ",request)
+    console.log("token inside middleware is : ",token)
+    console.log("url inside middleware is : ",url)
 
     if(token &&
         (
@@ -17,7 +21,7 @@ export async function middleware(request: NextRequest) {
             url.pathname.startsWith('/')
         )
     ){
-        return NextResponse.redirect(new URL('/dashboard', request.url))
+        return NextResponse.redirect(new URL('/', request.url))
 
     }
 

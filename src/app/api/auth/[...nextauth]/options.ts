@@ -20,7 +20,7 @@ export const authOptions : NextAuthOptions ={
                     $or:[
                         {email:credentials.identifier},
                         {username:credentials.identifier}
-                    ]
+                    ],
                    })
                    if(!user){
                     throw new Error("User NOt found");
@@ -31,6 +31,7 @@ export const authOptions : NextAuthOptions ={
 
                    const isPasswordCorrect = await bcrypt.compare(credentials.password,user.password);
                    if(isPasswordCorrect){
+                    console.log(user)
                     return user;
                    }
                    else{
@@ -39,16 +40,18 @@ export const authOptions : NextAuthOptions ={
                 } catch (error : any) {
                     throw new Error(error);
                 }
-            }
-        })
+            },
+        }),
     ],
     callbacks:{
         async jwt({ token, user}) {
             if(user){
                 token._id=user._id?.toString();
                 token.isVerified = user.isVerified;
-                token.isAcceptingMessage = user.isAcceptinMessage
+                token.isAcceptingMessage = user.isAcceptingMessage
                 token.username = user.username
+                console.log("token is :",token)
+
             }
             return token
         },
@@ -56,18 +59,19 @@ export const authOptions : NextAuthOptions ={
             if(token){
                 session.user._id=token._id;
                 session.user.isVerified=token.isVerified
-                session.user.isAcceptinMessage=token.isAcceptinMessage;
+                session.user.isAcceptingMessage=token.isAcceptingMessage;
                 session.user.username=token.username
+                console.log("sessin is :",session)
             }
             return session
-        }
-    },
-    pages : {
-        signIn : '/sign-in'
+        },
     },
     session:{
         strategy:"jwt"
     },
     secret:process.env.NEXT_AUTH_SECRET,
+    pages : {
+        signIn : '/sign-in'
+    },
     
     }

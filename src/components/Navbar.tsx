@@ -9,6 +9,7 @@ const Navbar = () => {
     const { data : session } = useSession();
 
     const user : User = session?.user as User
+    console.log(user)
   return (
     <nav className='p-6 shadow-md'>
         <div className='container mx-auto flex flex-col 
