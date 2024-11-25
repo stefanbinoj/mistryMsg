@@ -154,6 +154,7 @@ const FormMessage = React.forwardRef<
   }
 
   return (
+    <div>
     <p
       ref={ref}
       id={formMessageId}
@@ -162,6 +163,7 @@ const FormMessage = React.forwardRef<
     >
       {body}
     </p>
+    </div>
   )
 })
 FormMessage.displayName = "FormMessage"
