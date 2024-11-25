@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import {
   Carousel,
@@ -10,9 +10,33 @@ import {
 } from "@/components/ui/carousel"
 import messages from "@/messages.json"
 import AutoPlay from "embla-carousel-autoplay"
-const page = () => {
+
+import { Skeleton } from "@/components/ui/skeleton"
+ 
+export function SkeletonDemo() {
   return (
-    <>
+    <div className="flex flex-col space-y-3 mt-8 ml-80">
+      <Skeleton className="min-h-max min-w-max rounded-full" />
+      <div className="space-y-4">
+        <Skeleton className="h-80 w-[800px] " />
+        <Skeleton className="h-10 w-[800px] " />
+      </div>
+    </div>
+  )
+}
+
+const page = () => {
+  const [loading , setloading] = useState(true)
+  useEffect(()=>{
+    setloading(true)
+    const time = setTimeout(()=>{
+      console.log("waiting period")
+      setloading(false)
+    },3000)
+    return () => clearTimeout(time)  
+  },[])
+  return (
+    <>{ loading ? (<SkeletonDemo />):(<>
       <main className="flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-12  text-blsck">
         <section className="text-center mb-8 md:mb-12">
           <h1 className="text-3xl md:text-5xl font-bold">
@@ -50,6 +74,7 @@ const page = () => {
       <CarouselNext />
     </Carousel>
     </main>
+  </>)}
     </>
   )
 }
