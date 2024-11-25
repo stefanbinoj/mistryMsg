@@ -11,16 +11,16 @@ const Navbar = () => {
     const user : User = session?.user as User
     console.log("hamara user in nav is : ",user)
   return (
-    <nav className='p-6 bg-slate-800 text-white shadow-md'>
+    <nav className='p-6 py-4 bg-slate-950	 text-white shadow-md'>
         <div className='container mx-auto flex flex-col 
         md:flex-row justify-between items-center '>
-            <a href='#'>Mystery Message</a>
+            <a className='font-bold ml-4' href='/'>Mystery Message</a>
             {   session ? 
                 <>
-                <span>Welcome {user?.username || user?.email}</span>
+                <span className='font-medium'>Welcome {user?.username || user?.email}</span>
                 <Button onClick={()=>signOut()}>Logout</Button> 
                 </>  : <><Link href="/sign-in">
-                <Button >Login</Button>
+                <Button className='bg-slate-200	' >Login</Button>
                 </Link>
                 </>
             }
