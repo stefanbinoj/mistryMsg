@@ -21,17 +21,23 @@ export async function GET(request:Request) {
 
     try {
         const user = await UserModel.aggregate([
-            {$match : {id : userId} },
+            {$match : {_id : userId} },
             {$unwind : "$messages"},
             {$sort : {'messages.createdAt' :-1}},
             {$group : {_id:'$_id' , messages : {$push : '$messages'}}}
         ])
-        if(!user || user.length===0){
+        if(!user ){
             console.log("No user found : ");
             return Response.json({
                 success:false,
                 message: "No user " 
             },{status:400})
+        }else if( user.length===0){
+            console.log("user has no message to show   ");
+            return Response.json({
+                success:true,
+                message: "No messages " 
+            },{status:203})
         }
         return Response.json({
             success:true,
