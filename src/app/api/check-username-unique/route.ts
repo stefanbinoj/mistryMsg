@@ -24,7 +24,7 @@ export async function GET(request:Request) {
 
         }else{
             const {username} = queryParams
-            console.log(username)
+            console.log("usdername inside query para",username)
             const existingVerifiedUser  = await UserModel.findOne({username , isVerified : true})
             if(existingVerifiedUser){
                 return Response.json({

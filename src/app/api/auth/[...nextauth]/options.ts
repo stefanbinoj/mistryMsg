@@ -31,7 +31,7 @@ export const authOptions : NextAuthOptions ={
 
                    const isPasswordCorrect = await bcrypt.compare(credentials.password,user.password);
                    if(isPasswordCorrect){
-                    console.log(user)
+                    console.log("user inside options is ",user)
                     return user;
                    }
                    else{

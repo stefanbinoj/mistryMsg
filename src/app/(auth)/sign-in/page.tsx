@@ -38,7 +38,7 @@ const page = () => {
       identifier:data.identifier,
       password:data.password
     })
-    console.log(result)
+    console.log("result from signin is  :",result)
     setIsSubmitting(false)
     if(result?.error){
       toast({

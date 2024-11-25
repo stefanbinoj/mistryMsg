@@ -51,7 +51,7 @@ export async function POST(request:Request){
         const isVerficationCodeR8 : boolean = userToVerify.verificationCode == verifyCodeFromFrontend;
         userToVerify.isVerified =  isVerficationCodeR8;
         await userToVerify.save();
-        console.log(userToVerify)
+        console.log("the user ot verufyt is ",userToVerify)
 
         if(isVerficationCodeR8){
             return Response.json({
