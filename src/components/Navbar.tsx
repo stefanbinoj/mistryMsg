@@ -18,7 +18,7 @@ const Navbar = () => {
             {   session ? 
                 <>
 
-                <a href='/dashboard' className='font-medium'>{window.location.pathname=='/' ? "Dashboard" : "Home"}</a>
+                <a  href='/dashboard' className='font-medium'>{window.location.pathname=='/' ? "Dashboard" : "Home"}</a>
                 <Button onClick={()=>signOut()}>Logout</Button> 
                 </>  : <><Link href="/sign-in">
                 <Button className='bg-slate-200	' >Login</Button>
