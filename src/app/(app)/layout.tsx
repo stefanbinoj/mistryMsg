@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import Navbar from "@/components/Navbar";
+import AuthProvider from "@/context/AuthProvider";
 
 
 
@@ -16,10 +17,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
                   <Navbar/>
-        {children}
+                  <AuthProvider>{children}</AuthProvider>
 
       </body>
     </html>
