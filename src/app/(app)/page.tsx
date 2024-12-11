@@ -25,7 +25,7 @@ function SkeletonDemo() {
 }
 
 const Page = () => {
-  const savedTheme : string  = localStorage.getItem('theme') || 'white';
+  const savedTheme : string  =  'white';
     
   const [loading , setloading] = useState(true)
   useEffect(()=>{

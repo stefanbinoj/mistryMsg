@@ -10,19 +10,7 @@ const Navbar = () => {
   const {toast} = useToast();
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   // Check localStorage to persist the theme across Pagereloads
-  useEffect(() => {
-    // Ensure we're in the browser before trying to access localStorage
-    if (typeof window !== "undefined") {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        setIsDarkMode(true);
-        document.body.classList.add('dark');
-      } else {
-        setIsDarkMode(false);
-        document.body.classList.remove('dark');
-      }
-    }
-  }, []);
+  
 
   const toggleTheme = () => {
     console.log("cahnge")
@@ -30,10 +18,8 @@ const Navbar = () => {
       const newTheme = !prev;
       if (newTheme) {
         document.body.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
       } else {
         document.body.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
       }
       return newTheme;
     });
