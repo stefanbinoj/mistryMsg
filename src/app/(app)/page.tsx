@@ -12,8 +12,7 @@ import messages from "@/messages.json"
 import AutoPlay from "embla-carousel-autoplay"
 
 import { Skeleton } from "@/components/ui/skeleton"
- 
-export function SkeletonDemo() {
+function SkeletonDemo() {
   return (
     <div className="flex flex-col space-y-3 mt-8 ml-80">
       <Skeleton className="min-h-max min-w-max rounded-full" />
