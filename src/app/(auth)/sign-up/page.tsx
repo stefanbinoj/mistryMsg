@@ -74,7 +74,7 @@ const Page= () => {
     } catch (error) {
       console.log("error in signup of user " , error)
       const axiosError = error as AxiosError<ApiResponse>;
-      let errorMessage = axiosError.response?.data.message;
+      const errorMessage = axiosError.response?.data.message;
       toast({
         title:"Error",
         description : errorMessage,
