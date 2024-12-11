@@ -7,8 +7,10 @@ import { Button } from './ui/button'
 
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
+import { useToast } from '@/hooks/use-toast'
 
 const Navbar = () => {
+  const {toast} = useToast();
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   // Check localStorage to persist the theme across page reloads
   useEffect(() => {
@@ -37,6 +39,15 @@ const Navbar = () => {
     });
   };
 
+  const handleLogout = ()=>{
+    toast({
+      title:"Logout Completed",
+      variant:"default"
+
+    })
+    signOut();
+  }
+
     const { data : session } = useSession();
     const user : User = session?.user as User
     console.log("hamara user in nav is : ",user)
@@ -48,7 +59,7 @@ const Navbar = () => {
             <div className=' hidden md:flex md:flex-row md:block w-3/5 gap-4 ml-auto mr-0 justify-end'>
               
               <a className=' cursor-pointer hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out' href='/dashboard'>Dashboard</a>
-              {session? <a className=' cursor-pointer  hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out ' onClick={()=>signOut()}>Logout</a> 
+              {session? <a className=' cursor-pointer  hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out ' onClick={handleLogout}>Logout</a> 
                  : <a className=' cursor-pointer  hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out ' href="/sign-in"> Loign
                 </a>}
             </div>
