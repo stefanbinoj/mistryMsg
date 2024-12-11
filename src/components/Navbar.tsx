@@ -11,13 +11,16 @@ const Navbar = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   // Check localStorage to persist the theme across Pagereloads
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      setIsDarkMode(true);
-      document.body.classList.add('dark');
-    } else {
-      setIsDarkMode(false);
-      document.body.classList.remove('dark');
+    // Ensure we're in the browser before trying to access localStorage
+    if (typeof window !== "undefined") {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        setIsDarkMode(true);
+        document.body.classList.add('dark');
+      } else {
+        setIsDarkMode(false);
+        document.body.classList.remove('dark');
+      }
     }
   }, []);
 
