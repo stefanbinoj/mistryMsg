@@ -9,7 +9,7 @@ import Link from 'next/link'
 const Navbar = () => {
   const {toast} = useToast();
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
-  // Check localStorage to persist the theme across page reloads
+  // Check localStorage to persist the theme across Pagereloads
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {

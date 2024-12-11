@@ -13,7 +13,7 @@ import {  useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 
-const Page = () => {
+const Page= () => {
     const params = useParams<{username:string}>()
     const {toast} = useToast()
     const router = useRouter();

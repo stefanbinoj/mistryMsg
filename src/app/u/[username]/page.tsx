@@ -9,7 +9,7 @@ type FormData = {
   textArea: string;
 };
 
-const page = () => {
+const Page= () => {
   const {toast} = useToast();
   const [username, setUsername] = useState<string>("");
 
@@ -99,4 +99,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

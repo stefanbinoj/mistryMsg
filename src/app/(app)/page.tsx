@@ -25,7 +25,7 @@ export function SkeletonDemo() {
   )
 }
 
-const page = () => {
+const Page = () => {
   const savedTheme : string  = localStorage.getItem('theme') || 'white';
     
   const [loading , setloading] = useState(true)
@@ -88,4 +88,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
