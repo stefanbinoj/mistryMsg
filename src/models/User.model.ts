@@ -24,6 +24,7 @@ export interface User extends mongoose.Document{
     isVerified:boolean;
     verificationCodeExpiry:Date;
     isAcceptingMessage:boolean;
+    googleId:String;
     messages:Message[]
 }
 
@@ -58,6 +59,7 @@ const UserSchema : mongoose.Schema<User> = new mongoose.Schema({
         type:Boolean,
         default:true
     },
+    googleId:String,
     messages:[MessageSchema]
     
 })

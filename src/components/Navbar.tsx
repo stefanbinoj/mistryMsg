@@ -46,7 +46,7 @@ const Navbar = () => {
               
               <a className=' cursor-pointer hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out' href='/dashboard'>Dashboard</a>
               {session? <a className=' cursor-pointer  hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out ' onClick={handleLogout}>Logout</a> 
-                 : <button className=' cursor-pointer  hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out ' onClick={()=>signIn('google')}> Loign
+                 : <button className=' cursor-pointer  hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out ' onClick={()=>signIn()}> Loign
                 </button>}
             </div>
             <div className="flex items-center space-x-2 ml-auto item-end cursor-pointer">

@@ -4,30 +4,24 @@ import bcrypt from "bcryptjs"
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/User.model";
 import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from 'next-auth/providers/github';
 
 
 export const authOptions : NextAuthOptions ={
-    providers : [ 
-        GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID || '',
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-            authorization: {
-                params: {
-                  prompt: "consent",
-                  access_type: "offline",
-                  response_type: "code"
-                }
-            },
-            async profile(profile) {
+    providers : [
+        GitHubProvider({
+            clientId: process.env.GITHUB_ID || '',
+            clientSecret: process.env.GITHUB_SECRET || '',
+            async profile(profile) : Promise<any> {
+                console.log("profile si",profile)
                 await dbConnect(); 
-        
+                
                 let user = await UserModel.findOne({
                     $or:[
                         {email:profile.email},
                         {username:profile.name}
                     ],
-                   })
-                console.log('user inside gogle is ',user)
+                })
                   
         
                 if (!user) {
@@ -36,7 +30,7 @@ export const authOptions : NextAuthOptions ={
                     email: profile.email,
                     username: profile.name ,
                     //image: profile.picture, // Optional: Use profile picture
-                    //googleId: profile.id, // Store the Google ID
+                    googleId: profile.sub, // Store the Google ID
                     isVerified: true, // Assuming you trust Google email verification
                   });
         
@@ -46,7 +40,48 @@ export const authOptions : NextAuthOptions ={
                 }
         
                 // Return the profile, and it will be available in session and JWT
-                return profile;
+                return user;
+              },
+          }), 
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID || '',
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+            authorization: {
+                params: {
+                  scope: 'openid profile email',
+                  prompt: "consent",
+                  access_type: "offline",
+                  response_type: "code"
+                }
+            },
+            async profile(profile) : Promise<any> {
+                await dbConnect(); 
+                
+                let user = await UserModel.findOne({
+                    $or:[
+                        {email:profile.email},
+                        {username:profile.name}
+                    ],
+                })
+                  
+        
+                if (!user) {
+                  // If user doesn't exist, create a new user
+                  user = await UserModel.create({
+                    email: profile.email,
+                    username: profile.name ,
+                    //image: profile.picture, // Optional: Use profile picture
+                    googleId: profile.sub, // Store the Google ID
+                    isVerified: true, // Assuming you trust Google email verification
+                  });
+        
+                  console.log("User created:", user);
+                } else {
+                  console.log("User already exists:", user);
+                }
+        
+                // Return the profile, and it will be available in session and JWT
+                return user;
               },
           }),
         CredentialsProvider({
@@ -89,13 +124,8 @@ export const authOptions : NextAuthOptions ={
     callbacks:{
       
         async jwt({ token, user , account}) {
-            if (account && token?.sub !== account.providerAccountId) {
-                console.log("insdie google authenticagtion method  : ");
-                token.id = account.providerAccountId;
-                //token.email = account.email;
-
-            }
-            if(user){
+            
+             if(user){
                 token._id=user._id?.toString();
                 token.isVerified = user.isVerified;
                 token.isAcceptingMessage = user.isAcceptingMessage
