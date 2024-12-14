@@ -15,16 +15,21 @@ import {
 } from "@/components/ui/carousel";
 import messages from "@/messages.json";
 import AutoPlay from "embla-carousel-autoplay";
-import Dashboard from "@/components/SignInBox";
+import Modal from "@/components/SignInBox";
 
 
 const Page = () => {
   const savedTheme: string = "white";
 
   
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   return (
     <>
       <main className="flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-10 h-min-screen">
+        <Modal isOpen={isModalOpen} onClose={closeModal} />
         <section className="text-center mb-8 md:mb-12">
           <h1
             className="text-3xl md:text-5xl font-bold shadow-lg"
@@ -72,7 +77,6 @@ const Page = () => {
           <CarouselNext />
         </Carousel>
       </main>
-      <Dashboard />
     </>
   );
 };

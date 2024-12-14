@@ -5,6 +5,7 @@ import { User } from 'next-auth'
 import { Switch } from "@/components/ui/switch"
 import { useToast } from '@/hooks/use-toast'
 import Link from 'next/link'
+import Modal from './SignInBox'
 
 const Navbar = () => {
   const {toast} = useToast();
@@ -13,7 +14,6 @@ const Navbar = () => {
   
 
   const toggleTheme = () => {
-    console.log("cahnge")
     setIsDarkMode(prev => {
       const newTheme = !prev;
       if (newTheme) {
@@ -35,9 +35,13 @@ const Navbar = () => {
   }
 
     const { data : session } = useSession();
-    const user : User = session?.user as User
-    console.log("hamara user in nav is : ",user)
-  return (
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
+    return (
     <nav className={`pl-5 pr-0 py-5 mx-2 z-50 shadow-lg sticky top-0 backdrop-blur-sm border-b  ${isDarkMode ? 'bg-black/30 text-white border-gray-800' : 'bg-white text-black border-gray-300'}`}>
         <div className='container w-full 
         md:flex flex-row gap-4 items-center ml-5 w-screen justify-between '>
@@ -46,9 +50,10 @@ const Navbar = () => {
               
               <a className=' cursor-pointer hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out' href='/dashboard'>Dashboard</a>
               {session? <a className=' cursor-pointer  hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out ' onClick={handleLogout}>Logout</a> 
-                 : <button className=' cursor-pointer  hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out ' onClick={()=>signIn()}> Loign
+                 : <button className=' cursor-pointer  hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out '  onClick={openModal}> Loign
                 </button>}
             </div>
+            
             <div className="flex items-center space-x-2 ml-auto item-end cursor-pointer">
               <Switch className='hover:scale-125 transition-all duration-300 ease-in-out'   onCheckedChange={toggleTheme}  checked={isDarkMode} id="airplane-mode" />
             </div>

@@ -11,16 +11,15 @@ import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 import { Button } from "./ui/button"
 
-export const description =
-  "A sign up form with first name, last name, email and password inside a card. There's an option to sign up with GitHub and a link to login if you already have an account"
-
-export const iframeHeight = "600px"
-
-export const containerClassName =
-  "w-full h-screen flex items-center justify-center px-4"
-
-export default function LoginForm() {
-  return (
+interface ModalProps {
+    onClose: () => void;
+    isOpen: boolean;
+  }
+  
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+    if (!isOpen) return null; 
+  
+    return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
         <CardTitle className="text-xl">Sign In</CardTitle>
@@ -62,3 +61,5 @@ export default function LoginForm() {
     </Card>
   )
 }
+
+export default Modal;
