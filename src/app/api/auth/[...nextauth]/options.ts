@@ -3,9 +3,52 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs"
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/User.model";
+import GoogleProvider from "next-auth/providers/google";
+
 
 export const authOptions : NextAuthOptions ={
-    providers : [
+    providers : [ 
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID || '',
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+            authorization: {
+                params: {
+                  prompt: "consent",
+                  access_type: "offline",
+                  response_type: "code"
+                }
+            },
+            async profile(profile) {
+                await dbConnect(); 
+        
+                let user = await UserModel.findOne({
+                    $or:[
+                        {email:profile.email},
+                        {username:profile.name}
+                    ],
+                   })
+                console.log('user inside gogle is ',user)
+                  
+        
+                if (!user) {
+                  // If user doesn't exist, create a new user
+                  user = await UserModel.create({
+                    email: profile.email,
+                    username: profile.name ,
+                    //image: profile.picture, // Optional: Use profile picture
+                    //googleId: profile.id, // Store the Google ID
+                    isVerified: true, // Assuming you trust Google email verification
+                  });
+        
+                  console.log("User created:", user);
+                } else {
+                  console.log("User already exists:", user);
+                }
+        
+                // Return the profile, and it will be available in session and JWT
+                return profile;
+              },
+          }),
         CredentialsProvider({
             id:"credentials",
             name:"Credentials",
@@ -44,7 +87,14 @@ export const authOptions : NextAuthOptions ={
         }),
     ],
     callbacks:{
-        async jwt({ token, user}) {
+      
+        async jwt({ token, user , account}) {
+            if (account && token?.sub !== account.providerAccountId) {
+                console.log("insdie google authenticagtion method  : ");
+                token.id = account.providerAccountId;
+                //token.email = account.email;
+
+            }
             if(user){
                 token._id=user._id?.toString();
                 token.isVerified = user.isVerified;
@@ -70,8 +120,8 @@ export const authOptions : NextAuthOptions ={
         strategy:"jwt"
     },
     secret:process.env.NEXT_AUTH_SECRET,
-    pages : {
-        signIn : '/sign-in'
-    },
+    // pages : {
+    //     signIn : '/sign-in'
+    // },
     
     }

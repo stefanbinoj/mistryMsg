@@ -1,6 +1,6 @@
 "use client"
-import React, { useEffect, useState } from 'react'
-import { useSession , signOut } from 'next-auth/react'
+import React, { useState } from 'react'
+import { useSession , signOut, signIn } from 'next-auth/react'
 import { User } from 'next-auth'
 import { Switch } from "@/components/ui/switch"
 import { useToast } from '@/hooks/use-toast'
@@ -46,8 +46,8 @@ const Navbar = () => {
               
               <a className=' cursor-pointer hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out' href='/dashboard'>Dashboard</a>
               {session? <a className=' cursor-pointer  hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out ' onClick={handleLogout}>Logout</a> 
-                 : <a className=' cursor-pointer  hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out ' href="/sign-in"> Loign
-                </a>}
+                 : <button className=' cursor-pointer  hover:scale-125 transition-all hover:font-bold duration-300 ease-in-out ' onClick={()=>signIn('google')}> Loign
+                </button>}
             </div>
             <div className="flex items-center space-x-2 ml-auto item-end cursor-pointer">
               <Switch className='hover:scale-125 transition-all duration-300 ease-in-out'   onCheckedChange={toggleTheme}  checked={isDarkMode} id="airplane-mode" />

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import Navbar from "@/components/Navbar";
 import AuthProvider from "@/context/AuthProvider";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 
 
@@ -20,8 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-                  <Navbar/>
-                  <AuthProvider>{children}</AuthProvider>
+                  <Suspense fallback={<Loading />} >
+                    <Navbar/>
+                    <AuthProvider>{children}</AuthProvider>
+                  </Suspense>
+
 
       </body>
     </html>

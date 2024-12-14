@@ -43,11 +43,9 @@ const UserSchema : mongoose.Schema<User> = new mongoose.Schema({
     },
     password:{
         type:String,
-        required:true
     },
     verificationCode:{
         type:String,
-        required:[true , "verification code is required"]
     },
     verificationCodeExpiry:{
         type:Date,

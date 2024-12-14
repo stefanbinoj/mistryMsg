@@ -7,10 +7,10 @@ export async function middleware(request: NextRequest) {
     const secret = process.env.NEXT_AUTH_SECRET
     const token =await getToken({req:request , secret});
     const url = request.nextUrl
-    // console.log("req inside middlware is : ",request)
-    // console.log("token inside middleware is : ",token)
-    // console.log("url inside middleware is : ",url)
-    console.log("request . url is : ",request.url)
+     //console.log("req inside middlware is : ",request)
+     console.log("token inside middleware is : ",token)
+     //console.log("url inside middleware is : ",url)
+    //console.log("request . url is : ",request.url)
 
     if(token &&
         (
