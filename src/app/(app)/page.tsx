@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/carousel";
 import messages from "@/messages.json";
 import AutoPlay from "embla-carousel-autoplay";
+import Dashboard from "@/components/SignInBox";
 
 
 const Page = () => {
@@ -71,6 +72,7 @@ const Page = () => {
           <CarouselNext />
         </Carousel>
       </main>
+      <Dashboard />
     </>
   );
 };
