@@ -1,24 +1,25 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import messages from "@/messages.json";
-import AutoPlay from "embla-carousel-autoplay";
+import React, {  useState } from "react";
+
 import Modal from "@/components/SignInBox";
+import { Rate } from 'antd';
+import Footer from "@/components/Footer";
+import { Carousel } from 'antd';
+
+const contentStyle: React.CSSProperties = {
+  margin: 0,
+  height: '60px',
+  color: 'red',
+  lineHeight: '16px',
+  textAlign: 'center',
+  background: '#ffffff',
+};
 
 
 const Page = () => {
+  const onChange = (currentSlide: number) => {
+    console.log(currentSlide);
+  };
   const savedTheme: string = "white";
 
   
@@ -54,28 +55,26 @@ const Page = () => {
             True Feedback - Where your identity remains a secret.
           </p>
         </section>
-
-        <Carousel plugins={[AutoPlay({ delay: 2000 })]} className=" max-w-xs ">
-          <CarouselContent>
-            {messages.map((msg, index) => {
-              return (
-                <CarouselItem key={index}>
-                  <div className="p-1">
-                    <Card>
-                      <CardHeader>{msg.title}</CardHeader>
-                      <CardContent className="flex aspect-square items-center justify-center p-6">
-                        <p>{msg.content}</p>
-                      </CardContent>
-                      <CardFooter>{msg.received}</CardFooter>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              );
-            })}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
+        <Carousel afterChange={onChange}>
+      <div>
+        <h3 style={contentStyle}>1</h3>
+      </div>
+      <div>
+        <h3 style={contentStyle}>2</h3>
+      </div>
+      <div>
+        <h3 style={contentStyle}>3</h3>
+      </div>
+      <div>
+        <h3 style={contentStyle}>4</h3>
+      </div>
+    </Carousel>
+        
+        <div className="mt-5">
+          <Rate allowHalf defaultValue={2.5} />
+          <p className="inline ml-2 text-slate-500">(45)</p>
+        </div>
+        <Footer />
       </main>
     </>
   );
