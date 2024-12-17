@@ -43,9 +43,14 @@ const Navbar = () => {
      const openModal = () => setModal(true);
      useEffect(()=>{
       if(session)setModal(false)
-      else setModal(true)
+      
      },[session])
 
+     useEffect(()=>{
+      setModal(false)
+      
+     },[])
+     
     return (
     <nav className={`pl-5 pr-0 py-5 mx-2 z-50 shadow-lg sticky top-0 backdrop-blur-sm border-b  ${dark ? 'bg-black/30 text-white border-gray-800' : 'bg-white text-black border-gray-300'}`}>
         <div className='container w-full 
