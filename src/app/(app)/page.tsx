@@ -1,24 +1,14 @@
 "use client";
 import React, {  useState } from "react";
-import AutoPlay from "embla-carousel-autoplay";
-import Autoplay from "embla-carousel-autoplay";
-import { Card, CardContent } from "@/components/ui/card"
 import Modal from "@/components/SignInBox";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
 import {Rate} from "antd"
+import { InfiniteMovingCards } from "@/components/Carousal";
+import { messages } from "@/helpers/Messages";
 
 
 
 const Page = () => {
-  const plugin = React.useRef(
-    Autoplay({ delay: 200, stopOnInteraction: true })
-  )
+  
   
   const savedTheme: string = "white";
 
@@ -55,28 +45,7 @@ const Page = () => {
             True Feedback - Where your identity remains a secret.
           </p>
         </section>
-        <Carousel
-      plugins={[AutoPlay({ delay: 2000 })]} 
-      className="w-full max-w-xs"
-      onMouseEnter={plugin.current.stop}
-      onMouseLeave={plugin.current.reset}
-    >
-      <CarouselContent>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <CarouselItem key={index}>
-            <div className="p-1">
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <span className="text-4xl font-semibold">{index + 1}</span>
-                </CardContent>
-              </Card>
-            </div>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
+        <InfiniteMovingCards items={messages}/>
         
         <div className="mt-5">
           <Rate disabled allowHalf defaultValue={4.5} />
