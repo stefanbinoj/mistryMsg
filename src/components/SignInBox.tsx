@@ -11,11 +11,11 @@ import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 import { Button } from "./ui/button"
 import { parseAsBoolean, useQueryState } from "nuqs"
+import { FaGithub } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
+import { signIn } from "next-auth/react"
 
-interface ModalProps {
-    onClose: () => void;
-    isOpen: boolean;
-  }
+
   
 const Modal: React.FC = () => {
   const [isModal]  = useQueryState('modal',parseAsBoolean) || false
@@ -45,13 +45,15 @@ const Modal: React.FC = () => {
             <Label htmlFor="password">Password</Label>
             <Input id="password" type="password" />
           </div>
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full" onClick={()=>{signIn('credentials')}}>
             Create an account
           </Button>
-          <Button variant="outline" className="w-full">
+          <Button variant="outline" className="w-full" onClick={()=>{signIn('google')}}>
+          <FaGoogle />
             Sign up with Google
           </Button>
-          <Button variant="outline" className="w-full">
+          <Button variant="outline" className="w-full" onClick={()=>{signIn('github')}}>
+          <FaGithub />
             Sign up with GitHub
           </Button>
         </div>

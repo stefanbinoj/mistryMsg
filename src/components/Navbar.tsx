@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSession , signOut, signIn } from 'next-auth/react'
 import { Switch } from "@/components/ui/switch"
 import { useToast } from '@/hooks/use-toast'
@@ -41,6 +41,10 @@ const Navbar = () => {
     const [modal, setModal] = useQueryState('modal',parseAsBoolean.withDefault(false))
 
      const openModal = () => setModal(true);
+     useEffect(()=>{
+      if(session)setModal(false)
+      else setModal(true)
+     },[session])
 
     return (
     <nav className={`pl-5 pr-0 py-5 mx-2 z-50 shadow-lg sticky top-0 backdrop-blur-sm border-b  ${dark ? 'bg-black/30 text-white border-gray-800' : 'bg-white text-black border-gray-300'}`}>
