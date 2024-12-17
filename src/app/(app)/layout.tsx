@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import AuthProvider from "@/context/AuthProvider";
 import { Suspense } from "react";
 import Loading from "./loading";
+import { FloatingNav } from "@/components/ux";
 
 
 

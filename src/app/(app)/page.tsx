@@ -4,7 +4,6 @@ import AutoPlay from "embla-carousel-autoplay";
 import Autoplay from "embla-carousel-autoplay";
 import { Card, CardContent } from "@/components/ui/card"
 import Modal from "@/components/SignInBox";
-import Footer from "@/components/Footer";
 import {
   Carousel,
   CarouselContent,
@@ -80,10 +79,9 @@ const Page = () => {
     </Carousel>
         
         <div className="mt-5">
-          <Rate allowHalf defaultValue={2.5} />
+          <Rate disabled allowHalf defaultValue={4.5} />
           <p className="inline ml-2 text-slate-500">(45)</p>
         </div>
-        <Footer />
       </main>
     </>
   );
