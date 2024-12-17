@@ -1,25 +1,26 @@
 "use client";
 import React, {  useState } from "react";
-
+import AutoPlay from "embla-carousel-autoplay";
+import Autoplay from "embla-carousel-autoplay";
+import { Card, CardContent } from "@/components/ui/card"
 import Modal from "@/components/SignInBox";
-import { Rate } from 'antd';
 import Footer from "@/components/Footer";
-import { Carousel } from 'antd';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import {Rate} from "antd"
 
-const contentStyle: React.CSSProperties = {
-  margin: 0,
-  height: '60px',
-  color: 'red',
-  lineHeight: '16px',
-  textAlign: 'center',
-  background: '#ffffff',
-};
 
 
 const Page = () => {
-  const onChange = (currentSlide: number) => {
-    console.log(currentSlide);
-  };
+  const plugin = React.useRef(
+    Autoplay({ delay: 200, stopOnInteraction: true })
+  )
+  
   const savedTheme: string = "white";
 
   
@@ -55,19 +56,27 @@ const Page = () => {
             True Feedback - Where your identity remains a secret.
           </p>
         </section>
-        <Carousel afterChange={onChange}>
-      <div>
-        <h3 style={contentStyle}>1</h3>
-      </div>
-      <div>
-        <h3 style={contentStyle}>2</h3>
-      </div>
-      <div>
-        <h3 style={contentStyle}>3</h3>
-      </div>
-      <div>
-        <h3 style={contentStyle}>4</h3>
-      </div>
+        <Carousel
+      plugins={[AutoPlay({ delay: 2000 })]} 
+      className="w-full max-w-xs"
+      onMouseEnter={plugin.current.stop}
+      onMouseLeave={plugin.current.reset}
+    >
+      <CarouselContent>
+        {Array.from({ length: 5 }).map((_, index) => (
+          <CarouselItem key={index}>
+            <div className="p-1">
+              <Card>
+                <CardContent className="flex aspect-square items-center justify-center p-6">
+                  <span className="text-4xl font-semibold">{index + 1}</span>
+                </CardContent>
+              </Card>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
     </Carousel>
         
         <div className="mt-5">
