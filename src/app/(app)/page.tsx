@@ -4,35 +4,30 @@ import Modal from "@/components/SignInBox";
 import {Rate} from "antd"
 import { InfiniteMovingCards } from "@/components/Carousal";
 import { messages } from "@/helpers/Messages";
+import { parseAsBoolean, useQueryState } from "nuqs";
 
 
 
 const Page = () => {
   
-  
-  const savedTheme: string = "white";
+  const [savedTheme] = useQueryState('dark', parseAsBoolean)
 
   
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
   return (
     <>
-      <main className="flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-10 h-min-screen">
-        <Modal isOpen={isModalOpen} onClose={closeModal} />
+      <main className="relative flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-10 h-min-screen">
+        <Modal />
         <section className="text-center mb-8 md:mb-12">
           <h1
-            className="text-3xl md:text-5xl font-bold shadow-lg"
+            className="text-3xl md:text-5xl font-bold "
             style={
-              savedTheme === "dark"
+              savedTheme
                 ? {
-                    textShadow: "1px 30px 4px rgba(255, 255, 255, 0.4)",
                     transition: "text-shadow 10s ease-in-out",
                     color: "#e0e0e0",
                   } // Dark theme styles with lighter text color
                 : {
-                    textShadow: "1px 30px 4px rgba(0, 0, 0, 0.4)",
                     transition: "text-shadow 10s ease-in-out",
                     color: "#333333",
                   } // Light theme styles with darker text color
@@ -45,7 +40,9 @@ const Page = () => {
             True Feedback - Where your identity remains a secret.
           </p>
         </section>
-        <InfiniteMovingCards items={messages}/>
+        <InfiniteMovingCards items={messages} 
+        
+        />
         
         <div className="mt-5">
           <Rate disabled allowHalf defaultValue={4.5} />

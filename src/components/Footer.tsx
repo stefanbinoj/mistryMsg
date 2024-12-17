@@ -13,6 +13,7 @@ import {
 import Link from "next/link";
 import { useRef, useState } from "react";
 import socialLinks from "@/helpers/Icons";
+import { parseAsBoolean, useQueryState } from "nuqs";
 
 export const FloatingDock = ({
   items,
@@ -163,6 +164,7 @@ function IconContainer({
 
   const [hovered, setHovered] = useState(false);
 
+
   return (
     <Link href={href}>
       <motion.div
@@ -196,10 +198,11 @@ function IconContainer({
 }
 
 function Footer() {
+    const [savedTheme] = useQueryState('dark', parseAsBoolean)
   return (
     <div className="container mt-5 flex-col">
       <hr />
-      <footer className="py-3 my-4 text-slate-950 ">
+      <footer className={`py-3 my-4 ${!savedTheme ? 'text-slate-950' : 'text-slate-100' } `}>
         <ul className=" flex justify-center border-bottom pb-3 mb-3">
           <li className="nav-item">
             <a href="#" className="nav-link px-2 ">

@@ -10,17 +10,21 @@ import {
 import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 import { Button } from "./ui/button"
+import { parseAsBoolean, useQueryState } from "nuqs"
 
 interface ModalProps {
     onClose: () => void;
     isOpen: boolean;
   }
   
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-    if (!isOpen) return null; 
+const Modal: React.FC = () => {
+  const [isModal]  = useQueryState('modal',parseAsBoolean) || false
+  
+    if (!isModal) return null; 
+    console.log("Modal here is",isModal)
   
     return (
-    <Card className="mx-auto max-w-sm">
+    <Card className="absolute inset-x-0 top-0 my-20 z-40 mx-auto max-w-md">
       <CardHeader>
         <CardTitle className="text-xl">Sign In</CardTitle>
         
