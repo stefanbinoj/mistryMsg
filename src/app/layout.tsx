@@ -31,7 +31,7 @@ export default function RootLayout({
       <AuthProvider>
         <NuqsAdapter>
           <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+            className={`${geistSans.variable} ${geistMono.variable} antialiased element`}
           >
             {/* <Navbar/> */}
             {children}

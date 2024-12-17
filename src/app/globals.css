@@ -86,4 +86,13 @@ body.dark {
 /* Add transition effect */
 body {
   transition: background-color 0.5s ease-out, color 0.9s ease, transform 0.5s ease-in-out, opacity 0.3s ease-in;
+  max-width: 100vw !important;
+}
+.element{
+
+    max-width: 100vw; /* Maximum width equals the screen width */
+    width: 100%;      /* Make the width responsive */
+    margin: 0 auto;   /* Center the element if needed */
+    overflow-x: hidden;
+  
 }
