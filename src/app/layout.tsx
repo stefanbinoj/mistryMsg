@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import AuthProvider from "@/context/AuthProvider";
-import { Toaster } from "@/components/ui/toaster"
-import Footer from "@/components/Footer";
-
+import { Toaster } from "@/components/ui/toaster";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,14 +29,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <AuthProvider>
-
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          {/* <Navbar/> */}
-        {children}
-        <Toaster />
-      </body>
-      <Footer />
+        <NuqsAdapter>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            {/* <Navbar/> */}
+            {children}
+            <Toaster />
+          </body>
+          
+        </NuqsAdapter>
       </AuthProvider>
     </html>
   );

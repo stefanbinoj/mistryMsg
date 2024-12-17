@@ -4,7 +4,8 @@ import Navbar from "@/components/Navbar";
 import AuthProvider from "@/context/AuthProvider";
 import { Suspense } from "react";
 import Loading from "./loading";
-
+import Footer from "@/components/Footer";
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 
 
@@ -24,8 +25,13 @@ export default function RootLayout({
       <body>
                   <Suspense fallback={<Loading />} >
                     <Navbar/>
-                    <AuthProvider>{children}</AuthProvider>
+                    <AuthProvider>
+                    <NuqsAdapter>
+                      {children}
+                    </NuqsAdapter>
+                    </AuthProvider>
                   </Suspense>
+                  <Footer />
 
 
       </body>
