@@ -16,27 +16,23 @@ export const authOptions : NextAuthOptions ={
                 await dbConnect(); 
                 
                 let user = await UserModel.findOne({
-                    $or:[
-                        {email:profile.email},
-                        {username:profile.name}
-                    ],
+                    email:profile.email
                 })
+
+                console.log("User inside gh is : ",user)
                   
         
                 if (!user) {
-                  // If user doesn't exist, create a new user
                   user = await UserModel.create({
                     email: profile.email,
                     username: profile.name ,
-                    //image: profile.picture, // Optional: Use profile picture
-                    googleId: profile.sub, // Store the Google ID
                     isVerified: true, // Assuming you trust Google email verification
                   });
+                  console.log("New User Have been created")
         
                 } else {
+                  console.log("User exists")
                 }
-        
-                // Return the profile, and it will be available in session and JWT
                 return user;
               },
           }), 
@@ -53,30 +49,29 @@ export const authOptions : NextAuthOptions ={
             },
             async profile(profile) : Promise<any> {
                 await dbConnect(); 
+                console.log("profile is inn Google is : ",profile)
                 
                 let user = await UserModel.findOne({
-                    $or:[
-                        {email:profile.email},
-                        {username:profile.name}
-                    ],
+                    email:profile.email
                 })
+
+                console.log("User inside Googg is : ",user)
                   
         
                 if (!user) {
-                  // If user doesn't exist, create a new user
                   user = await UserModel.create({
                     email: profile.email,
                     username: profile.name ,
-                    //image: profile.picture, // Optional: Use profile picture
-                    googleId: profile.sub, // Store the Google ID
                     isVerified: true, // Assuming you trust Google email verification
+                    googleId:profile.sub
                   });
+                  
+                  console.log("New User created")
         
                 } else {
+                  console.log("User already exists")
                 }
-        
-                // Return the profile, and it will be available in session and JWT
-                return user;
+                        return user;
               },
           }),
         CredentialsProvider({
@@ -124,7 +119,7 @@ export const authOptions : NextAuthOptions ={
                 token.isVerified = user.isVerified;
                 token.isAcceptingMessage = user.isAcceptingMessage
                 token.username = user.username
-                             
+                token.email=user.email
             }
             return token
         },
@@ -134,6 +129,7 @@ export const authOptions : NextAuthOptions ={
                 session.user.isVerified=token.isVerified
                 session.user.isAcceptingMessage=token.isAcceptingMessage;
                 session.user.username=token.username
+                session.user.email=token.email
             }
             return session
         },

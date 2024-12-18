@@ -15,6 +15,7 @@ import { useSession } from 'next-auth/react'
 import { parseAsBoolean, useQueryState } from 'nuqs'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { Input } from "@/components/ui/input"
 
 const Page= () => {
   const [messages , setMessages] = useState<Message[]>([])
@@ -140,12 +141,13 @@ const Page= () => {
       <div className="mb-4">
         <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>{' '}
         <div className="flex items-center">
-          <input
+          {/* <input
             type="text"
             value={profileUrl }
             disabled
             className="input input-bordered w-full p-2 mr-2"
-          />
+          /> */}
+          <Input className='p-2 mr-4 hover:bg-slate-400 border-solid border-2 border-slate-300' disabled value={profileUrl} type="text" placeholder="public url" />
           <Button onClick={copyToClipboard}>Copy</Button>
         </div>
       </div>

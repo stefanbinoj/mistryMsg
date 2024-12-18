@@ -33,7 +33,6 @@ const UserSchema : mongoose.Schema<User> = new mongoose.Schema({
         type:String,
         required:[true , "Please provide an username"],
         trim:true,
-        unique:true
     },
     email:{
         type:String,

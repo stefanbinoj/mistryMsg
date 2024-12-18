@@ -9,7 +9,6 @@ export async function middleware(request: NextRequest) {
     const url = request.nextUrl
      //console.log("req inside middlware is : ",request)
      //console.log("url inside middleware is : ",url)
-    console.log("request . url is : ",request.nextUrl.pathname)
 
     if(token &&
         (
@@ -21,7 +20,6 @@ export async function middleware(request: NextRequest) {
             request.nextUrl.pathname=='/'
         )
     ){  const red = NextResponse.redirect(new URL('/dashboard', request.url))
-      console.log("redirecte is  : ",red)
         return NextResponse.redirect(new URL('/dashboard', request.url))
 
     }
