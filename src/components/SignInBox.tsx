@@ -1,52 +1,44 @@
-import Link from "next/link"
-
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
-  CardTitle,
 } from "./ui/card"
-import { Input } from "./ui/input"
-import { Label } from "./ui/label"
 import { Button } from "./ui/button"
 import { parseAsBoolean, useQueryState } from "nuqs"
 import { FaGithub } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 import { signIn } from "next-auth/react"
-
+import { SiGmail } from "react-icons/si";
+import Link from 'next/link';
+import { useToast } from "@/hooks/use-toast";
 
   
 const Modal: React.FC = () => {
   const [isModal]  = useQueryState('modal',parseAsBoolean) || false
-  
+  const {toast} = useToast();
+
     if (!isModal) return null; 
-    console.log("Modal here is",isModal)
+    const handleEmailLogin = () =>{
+      toast({
+        title:"Oops !!",
+        description : "Email Login Not possible at the current moment. Please try again later",
+      })
+    }
+    
+
   
     return (
-    <Card className="absolute inset-x-0 top-0 my-20 z-40 mx-auto max-w-md">
+    <Card className="absolute inset-x-0 top-20 my-20 z-40 mx-auto max-w-md">
       <CardHeader>
-        <CardTitle className="text-xl">Sign In</CardTitle>
         
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
           
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" />
-          </div>
-          <Button type="submit" className="w-full" onClick={()=>{signIn('credentials')}}>
-            Create an account
+        
+          <Button variant="outline" className="w-full" onClick={handleEmailLogin} >
+          <SiGmail />
+          Sign up with Email
           </Button>
           <Button variant="outline" className="w-full" onClick={()=>{signIn('google')}}>
           <FaGoogle />
@@ -57,12 +49,7 @@ const Modal: React.FC = () => {
             Sign up with GitHub
           </Button>
         </div>
-        <div className="mt-4 text-center text-sm">
-          Already have an account?{" "}
-          <Link href="#" className="underline">
-            Sign in
-          </Link>
-        </div>
+        
       </CardContent>
     </Card>
   )

@@ -27,13 +27,11 @@ export async function GET(request:Request) {
             {$group : {_id:'$_id' , messages : {$push : '$messages'}}}
         ])
         if(!user ){
-            console.log("No user found : ");
             return Response.json({
                 success:false,
                 message: "No user " 
             },{status:400})
         }else if( user.length===0){
-            console.log("user has no message to show   ");
             return Response.json({
                 success:true,
                 message: "No messages " 
@@ -46,7 +44,6 @@ export async function GET(request:Request) {
         },{status:200})
 
     } catch (error) {
-        console.log("Error getting messages : "+error);
         return Response.json({
             success:false,
             message: "Error gettinf accpetance messages : "+error

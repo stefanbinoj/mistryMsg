@@ -8,17 +8,17 @@ export async function middleware(request: NextRequest) {
     const token =await getToken({req:request , secret});
     const url = request.nextUrl
      //console.log("req inside middlware is : ",request)
-     console.log("token inside middleware is : ",token)
      //console.log("url inside middleware is : ",url)
-    //console.log("request . url is : ",request.url)
+    console.log("request . url is : ",request.nextUrl.pathname)
 
     if(token &&
         (
             url.pathname.startsWith('/sign-in') ||
             url.pathname.startsWith('/sign-up') ||
             url.pathname.startsWith('/verify/:path*') ||
-            url.pathname.startsWith('/dashboard/:path*') 
+            url.pathname.startsWith('/dashboard/:path*') ||
             //url.pathname.startsWith('/dashboard/:path*')
+            request.nextUrl.pathname=='/'
         )
     ){  const red = NextResponse.redirect(new URL('/dashboard', request.url))
       console.log("redirecte is  : ",red)

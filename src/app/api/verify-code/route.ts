@@ -13,7 +13,6 @@ export async function POST(request:Request){
         username = decodeURIComponent(username || "");
 
         if(username==""){
-            console.log("No Username Found : ");
             return Response.json({
                 success:false,
                 message: "No user name foundd "
@@ -22,7 +21,6 @@ export async function POST(request:Request){
         let verifyCodeFromFrontend = await request.json();
         verifyCodeFromFrontend = verifyCodeFromFrontend.code
         if(!verifyCodeFromFrontend){
-            console.log("No Code : ");
             return Response.json({
             success:false,
             message: "No Cpde "
@@ -33,7 +31,6 @@ export async function POST(request:Request){
             username
         })
         if(!userToVerify){
-            console.log("No User  : ");
             return Response.json({
                 success:false,
                 message: "No user found " 
@@ -42,7 +39,6 @@ export async function POST(request:Request){
 
         const codeNotExpired = new Date(userToVerify.verificationCodeExpiry) > new Date()
         if(!codeNotExpired){
-            console.log("code expired on  "+new Date(userToVerify.verificationCodeExpiry))
             return Response.json({
                 success:false,
                 message:"Code expired try again "
@@ -51,7 +47,6 @@ export async function POST(request:Request){
         const isVerficationCodeR8 : boolean = userToVerify.verificationCode == verifyCodeFromFrontend;
         userToVerify.isVerified =  isVerficationCodeR8;
         await userToVerify.save();
-        console.log("the user ot verufyt is ",userToVerify)
 
         if(isVerficationCodeR8){
             return Response.json({
@@ -65,7 +60,6 @@ export async function POST(request:Request){
         },{status:400})
 
     } catch (error) {
-        console.log("Error verifying : "+error);
         return Response.json({
             success:false,
             message: "Error verifying : "+error

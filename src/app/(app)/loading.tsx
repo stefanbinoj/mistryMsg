@@ -7,7 +7,6 @@ const Loading = ()=> {
       useEffect(() => {
         setLoading(true);
         const time = setTimeout(() => {
-          console.log("waiting period");
           setLoading(false);
         }, 1000);
         return () => clearTimeout(time);

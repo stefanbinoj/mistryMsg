@@ -29,7 +29,6 @@ export async function POST(request:Request) {
             )
 
             if(!updatedUser){
-                console.log("User Not found")
                 return Response.json({
                     success:false,
                     message:"User Not found"

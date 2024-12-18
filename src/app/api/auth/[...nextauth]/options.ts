@@ -13,7 +13,6 @@ export const authOptions : NextAuthOptions ={
             clientId: process.env.GITHUB_ID || '',
             clientSecret: process.env.GITHUB_SECRET || '',
             async profile(profile) : Promise<any> {
-                console.log("profile si",profile)
                 await dbConnect(); 
                 
                 let user = await UserModel.findOne({
@@ -34,9 +33,7 @@ export const authOptions : NextAuthOptions ={
                     isVerified: true, // Assuming you trust Google email verification
                   });
         
-                  console.log("User created:", user);
                 } else {
-                  console.log("User already exists:", user);
                 }
         
                 // Return the profile, and it will be available in session and JWT
@@ -75,9 +72,7 @@ export const authOptions : NextAuthOptions ={
                     isVerified: true, // Assuming you trust Google email verification
                   });
         
-                  console.log("User created:", user);
                 } else {
-                  console.log("User already exists:", user);
                 }
         
                 // Return the profile, and it will be available in session and JWT
@@ -109,7 +104,6 @@ export const authOptions : NextAuthOptions ={
 
                    const isPasswordCorrect = await bcrypt.compare(credentials.password,user.password);
                    if(isPasswordCorrect){
-                    console.log("user inside options is ",user)
                     return user;
                    }
                    else{
@@ -130,8 +124,7 @@ export const authOptions : NextAuthOptions ={
                 token.isVerified = user.isVerified;
                 token.isAcceptingMessage = user.isAcceptingMessage
                 token.username = user.username
-                console.log("token is :",token)
-
+                             
             }
             return token
         },
@@ -141,7 +134,6 @@ export const authOptions : NextAuthOptions ={
                 session.user.isVerified=token.isVerified
                 session.user.isAcceptingMessage=token.isAcceptingMessage;
                 session.user.username=token.username
-                console.log("sessin is :",session)
             }
             return session
         },

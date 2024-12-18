@@ -6,7 +6,6 @@ import { NextRequest } from "next/server";
 
 export async function DELETE(request: NextRequest, params   : any) {
     const { messageId } = params;  // Extract the messageId from params
-    console.log("Message ID to delete:", messageId);
 
     // Connect to the database
     await dbConnect();
@@ -48,7 +47,6 @@ export async function DELETE(request: NextRequest, params   : any) {
             { status: 200 }
         );
     } catch (error) {
-        console.log("Error while deleting:", error);
         return Response.json(
             {
                 success: false,

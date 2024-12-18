@@ -45,7 +45,6 @@ const Page= () => {
         try {
           const response = await axios.get(`/api/check-username-unique?username=${username}`);
           setUsernameMessage(response.data.message);
-          console.log(response)
         } catch (error) {
           const axiosError = error as AxiosError<ApiResponse>;
           setUsernameMessage(axiosError.response?.data.message || "Error checking username uniqueness");
@@ -62,8 +61,6 @@ const Page= () => {
     setIsSubmitting(true)
     try {
       const response =await axios.post<ApiResponse>(`/api/sign-up`,data)
-      console.log("data for signuo is  : ",data);
-      console.log("response for signup is : ",response)
       toast({
         title:'Success',
         description:response.data.message
@@ -72,7 +69,6 @@ const Page= () => {
       setIsSubmitting(false)
 
     } catch (error) {
-      console.log("error in signup of user " , error)
       const axiosError = error as AxiosError<ApiResponse>;
       const errorMessage = axiosError.response?.data.message;
       toast({

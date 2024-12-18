@@ -22,7 +22,6 @@ export async function POST(req:Request){
         }
 
         const existingUserByEmail = await UserModel.findOne({email});
-        console.log(existingUserByEmail)
     
         if(existingUserByEmail){
 
@@ -72,7 +71,6 @@ export async function POST(req:Request){
         )
 
     } catch (error) {
-        console.log("Error under api "+error);
         return Response.json({
             success:false,
             message:"Error while posting "+error
