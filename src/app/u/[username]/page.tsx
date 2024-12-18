@@ -4,6 +4,7 @@ import { ApiResponse } from "@/types/apiResponses";
 import axios, { AxiosError } from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Textarea } from "@/components/ui/textarea"
 
 type FormData = {
   textArea: string;
@@ -76,8 +77,8 @@ const Page= () => {
           Send anonymous message to <span className="font-bold">{username}</span>
         </p>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <textarea
-            className="mt-5 w-full border-solid border-2 border-gray-500 py-3 px-3"
+          <Textarea
+            className=" py-3 px-3"
             rows={5}
             cols={5}
             placeholder="Write A message"
