@@ -23,9 +23,10 @@ export const authOptions : NextAuthOptions ={
                   
         
                 if (!user) {
+                  const username : string[] = profile.email.split('@')
                   user = await UserModel.create({
                     email: profile.email,
-                    username: profile.name ,
+                    username: username[0] ,
                     isVerified: true, // Assuming you trust Google email verification
                   });
                   console.log("New User Have been created")
@@ -59,9 +60,10 @@ export const authOptions : NextAuthOptions ={
                   
         
                 if (!user) {
+                  const username : string[] = profile.email.split('@')
                   user = await UserModel.create({
                     email: profile.email,
-                    username: profile.name ,
+                    username: username[0] ,
                     isVerified: true, // Assuming you trust Google email verification
                     googleId:profile.sub
                   });

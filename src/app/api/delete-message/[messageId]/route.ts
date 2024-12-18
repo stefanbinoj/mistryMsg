@@ -4,7 +4,7 @@ import { getServerSession, User } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/options";
 import { NextRequest } from "next/server";
 
-export async function DELETE(request: NextRequest, params   : any) {
+export async function DELETE(request: NextRequest, { params }: { params: { messageId: string } }) {
     const { messageId } = params;  // Extract the messageId from params
 
     // Connect to the database
@@ -35,7 +35,7 @@ export async function DELETE(request: NextRequest, params   : any) {
                     success: false,
                     message: "Message not found",
                 },
-                { status: 404 }
+                { status: 403 }
             );
         }
 

@@ -16,6 +16,7 @@ import { parseAsBoolean, useQueryState } from 'nuqs'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Input } from "@/components/ui/input"
+import Loading from '../loading'
 
 const Page= () => {
   const [messages , setMessages] = useState<Message[]>([])
@@ -56,19 +57,22 @@ const Page= () => {
       setSwitchLoading(false);
     }
   },[setValue])
-
+ 
   const fetchAllMessages = useCallback(async(refresh : boolean = false)=>{
     setLoading(true)
     setSwitchLoading(false)
     try {
       const result =await axios.get<ApiResponse>('/api/get-messages')
-      setMessages(result.data.messages || [])
-      if(refresh){
+      if(!refresh){
         toast({
           title:"Refreshed Messages",
           description:"Your Message will be loaded right now "
         })
       }
+      setSwitchLoading(false);
+      setLoading(false)
+      setMessages(result.data.messages || [])
+      
       
     } catch (error) {
       console.log("eroor while frtching messages  :",error);
@@ -79,16 +83,7 @@ const Page= () => {
         variant:"destructive"
       })
     }
-    finally{
-      setSwitchLoading(false);
-      setLoading(false)
-      if(messages.length==0){
-        toast({
-          title:"OOpsss !! no message",
-          description:"Looks lke no one sent message , come again lateer chief !!"
-        })
-      }
-    }
+    
   },[setLoading,setMessages])
 
   useEffect(()=>{
@@ -121,7 +116,7 @@ const Page= () => {
     }
   }
   if(!session || !session.user){
-    return <div>Plese login</div>
+    return <div><Loading /></div>
   }
 
   const {username} = session.user as User
@@ -141,12 +136,7 @@ const Page= () => {
       <div className="mb-4">
         <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>{' '}
         <div className="flex items-center">
-          {/* <input
-            type="text"
-            value={profileUrl }
-            disabled
-            className="input input-bordered w-full p-2 mr-2"
-          /> */}
+          
           <Input className='p-2 mr-4 hover:bg-slate-400 border-solid border-2 border-slate-300' disabled value={profileUrl} type="text" placeholder="public url" />
           <Button onClick={copyToClipboard}>Copy</Button>
         </div>
@@ -187,7 +177,7 @@ const Page= () => {
               message={message}
               onMessageDelete={handleDeleteMessage}
             />
-          ))
+          )) 
         ) : (
           <p>No messages to display.</p>
         )}
