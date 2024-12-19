@@ -10,6 +10,7 @@ import { Cover } from "@/components/ui/cover";
 import  HoverBorderGradientDemo  from "@/components/Aibutton";
 import { SkeletonCard } from "@/components/ui/skeleton-loading";
 import { CardHoverEffectDemo } from "@/components/AIMessageCard";
+import { parseAsString, useQueryState } from 'nuqs'
 
 type FormData = {
   textArea: string;
@@ -75,6 +76,16 @@ const Page= () => {
       }
   
   };
+  const [AIMSG] =useQueryState('AIMSG', parseAsString.withDefault(''))
+
+  useEffect((
+  )=>{
+    console.log("Changed nuqs for",AIMSG)
+    setValue("textArea", AIMSG); 
+
+  },[AIMSG])
+
+
   useEffect(()=>{
     document.body.classList.add('dark');
   },[])
@@ -91,7 +102,7 @@ const Page= () => {
       
       setTimeout(function() {
         setAIMessages(newArr)
-      }, 2000);
+      }, 1500);
     } catch (error) {
       console.log("eroor while frtching groq api  :",error);
             const axiosError = error as AxiosError<ApiResponse>
@@ -151,7 +162,7 @@ const Page= () => {
       {!loading && aiMessages && aiMessages.length>0 ? 
       
         
-        <CardHoverEffectDemo items={aiMessages}/> 
+        <CardHoverEffectDemo  items={aiMessages}/> 
       
       : ''}
       

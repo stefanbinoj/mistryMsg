@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { useQueryState } from 'nuqs'
 
 export const HoverEffect = ({
   items,
@@ -13,7 +14,13 @@ export const HoverEffect = ({
   }[];
   className?: string;
 }) => {
+  const [AIMessage, setAIMessage] = useQueryState('AIMSG')
+
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const handleAIMessageClicks = (e : any) =>{
+    setAIMessage(e.target.innerHTML)
+
+  }
 
   return (
     <div
@@ -47,7 +54,9 @@ export const HoverEffect = ({
             )}
           </AnimatePresence>
           <Card>
-            <CardDescription>{item.description}</CardDescription>
+            <CardDescription><button onClick={handleAIMessageClicks} >
+            {item.description}
+              </button></CardDescription>
           </Card>
         </a>
       ))}
