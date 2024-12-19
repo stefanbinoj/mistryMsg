@@ -9,9 +9,13 @@ import { BackgroundBeams } from "../../../components/ui/background-beams"
 import { Cover } from "@/components/ui/cover";
 import  HoverBorderGradientDemo  from "@/components/Aibutton";
 import { SkeletonCard } from "@/components/ui/skeleton-loading";
+import { CardHoverEffectDemo } from "@/components/AIMessageCard";
 
 type FormData = {
   textArea: string;
+};
+type Item = {
+  description: string;
 };
 
 const Page= () => {
@@ -74,15 +78,19 @@ const Page= () => {
   useEffect(()=>{
     document.body.classList.add('dark');
   },[])
-  const [aiMessages, setAIMessages] = useState<string[]>([]);  // Store the list of AI messages
+  const [aiMessages, setAIMessages] = useState<Item[]>([]);  // Store the list of AI messages
 
   const handleButtonClick = async () => {
     setLoading(true)
     try {
       const result = await axios.get<ApiResponse>('/api/groq-ai')
-      console.log(result.data.message)
       const msg  =result.data.message[0].split('   ')
-      setAIMessages(msg)
+      const newArr = msg.map(item => ({
+        description: item
+      }));
+      console.log(newArr)
+      
+      setAIMessages(newArr)
       console.log(msg)
     } catch (error) {
       console.log("eroor while frtching groq api  :",error);
@@ -137,7 +145,13 @@ const Page= () => {
 
       </div>
       <HoverBorderGradientDemo onClick={handleButtonClick} />
-      {aiMessages && aiMessages.length>0 ? <p>hi</p>: ''}
+      {aiMessages && aiMessages.length>0 ? 
+      
+        
+        <CardHoverEffectDemo items={aiMessages}/> 
+      
+      : ''}
+      
       <div className="flex justify-center">
       {loading ? <SkeletonCard /> : ''}
       </div>
