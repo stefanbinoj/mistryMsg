@@ -7,6 +7,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea"
 import { BackgroundBeams } from "../../../components/ui/background-beams"
 import { Cover } from "@/components/ui/cover";
+import  HoverBorderGradientDemo  from "@/components/Aibutton";
 
 type FormData = {
   textArea: string;
@@ -68,16 +69,45 @@ const Page= () => {
       }
   
   };
+  useEffect(()=>{
+    document.body.classList.add('dark');
+  },[])
+
+  const [aiMessages, setAIMessages] = useState<string[]>([]);  // Store the list of AI messages
+
+  const handleButtonClick = async () => {
+    console.log("clicked")
+    try {
+      const response = await fetch('YOUR_API_ENDPOINT', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: 'generate AI messages' }),  // Pass any necessary data to your API
+      });
+
+      const data = await response.json();
+
+      if (data && data.messages) {
+        setAIMessages(data.messages);  // Assuming the response has a `messages` array
+      }
+    } catch (error) {
+      console.error('Error fetching AI messages:', error);
+    }
+  }
 
   return (
     <>
-      <div className="md:px-20 flex flex-col w-screen min-h-screen bg-black text-white">
+      <div className="md:px-20 flex flex-col w-screen ">
         {/* <h1 className="text-3xl text-center md:text-4xl font-bold">
           Send Messages to unknown usernames !!
         </h1> */}
-        <h1 className="text-4xl md:text-4xl lg:text-6xl font-semibold max-w-7xl mx-auto text-center mt-6 relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
+        
+      <div className="">
+      <h1 className="text-4xl md:text-4xl lg:text-6xl font-semibold max-w-7xl mx-auto text-center mt-6 relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
         Send Messages <br /> to <Cover>unknown usernames !!</Cover>
       </h1>
+    </div>
       
         <p className="text-xl mt-8 mb-2">
           Send anonymous message to <span className="font-bold">{username}</span>
@@ -100,7 +130,9 @@ const Page= () => {
             Send
           </button>
         </form>
+
       </div>
+      <HoverBorderGradientDemo onClick={handleButtonClick} />
       <div className="min-h-screen w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
       <div className="max-w-2xl mx-auto p-4">
         <h1 className="relative z-10 text-lg md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
