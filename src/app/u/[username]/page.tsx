@@ -8,12 +8,14 @@ import { Textarea } from "@/components/ui/textarea"
 import { BackgroundBeams } from "../../../components/ui/background-beams"
 import { Cover } from "@/components/ui/cover";
 import  HoverBorderGradientDemo  from "@/components/Aibutton";
+import { SkeletonCard } from "@/components/ui/skeleton-loading";
 
 type FormData = {
   textArea: string;
 };
 
 const Page= () => {
+  const [loading , setLoading] = useState<boolean>(false)
   const {toast} = useToast();
   const [username, setUsername] = useState<string>("");
 
@@ -72,29 +74,31 @@ const Page= () => {
   useEffect(()=>{
     document.body.classList.add('dark');
   },[])
-
   const [aiMessages, setAIMessages] = useState<string[]>([]);  // Store the list of AI messages
 
   const handleButtonClick = async () => {
-    console.log("clicked")
+    setLoading(true)
     try {
-      const response = await fetch('YOUR_API_ENDPOINT', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query: 'generate AI messages' }),  // Pass any necessary data to your API
-      });
-
-      const data = await response.json();
-
-      if (data && data.messages) {
-        setAIMessages(data.messages);  // Assuming the response has a `messages` array
-      }
+      const result = await axios.get<ApiResponse>('/api/groq-ai')
+      console.log(result.data.message)
+      const msg  =result.data.message[0].split('   ')
+      setAIMessages(msg)
+      console.log(msg)
     } catch (error) {
-      console.error('Error fetching AI messages:', error);
+      console.log("eroor while frtching groq api  :",error);
+            const axiosError = error as AxiosError<ApiResponse>
+            toast({
+              title:"Error",
+              description : axiosError.response?.data.message || "Failed to fetch from ai  ",
+              variant:"destructive"
+            })
     }
   }
+
+  useEffect(()=>{console.log(loading)
+    setLoading(false)
+  },[aiMessages])
+  
 
   return (
     <>
@@ -133,6 +137,10 @@ const Page= () => {
 
       </div>
       <HoverBorderGradientDemo onClick={handleButtonClick} />
+      {aiMessages && aiMessages.length>0 ? <p>hi</p>: ''}
+      <div className="flex justify-center">
+      {loading ? <SkeletonCard /> : ''}
+      </div>
       <div className="min-h-screen w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
       <div className="max-w-2xl mx-auto p-4">
         <h1 className="relative z-10 text-lg md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
