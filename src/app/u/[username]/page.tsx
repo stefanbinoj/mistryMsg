@@ -71,13 +71,14 @@ const Page= () => {
 
   return (
     <>
-      <div className="md:px-20 flex flex-col w-screen min-h-screen">
+      <div className="md:px-20 flex flex-col w-screen min-h-screen bg-black text-white">
         {/* <h1 className="text-3xl text-center md:text-4xl font-bold">
           Send Messages to unknown usernames !!
         </h1> */}
         <h1 className="text-4xl md:text-4xl lg:text-6xl font-semibold max-w-7xl mx-auto text-center mt-6 relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
         Send Messages <br /> to <Cover>unknown usernames !!</Cover>
       </h1>
+      
         <p className="text-xl mt-8 mb-2">
           Send anonymous message to <span className="font-bold">{username}</span>
         </p>
