@@ -80,7 +80,6 @@ const Page= () => {
 
   useEffect((
   )=>{
-    console.log("Changed nuqs for",AIMSG)
     setValue("textArea", AIMSG); 
 
   },[AIMSG])
