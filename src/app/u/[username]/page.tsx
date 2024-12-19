@@ -88,10 +88,8 @@ const Page= () => {
       const newArr = msg.map(item => ({
         description: item
       }));
-      console.log(newArr)
       
       setAIMessages(newArr)
-      console.log(msg)
     } catch (error) {
       console.log("eroor while frtching groq api  :",error);
             const axiosError = error as AxiosError<ApiResponse>
@@ -103,7 +101,7 @@ const Page= () => {
     }
   }
 
-  useEffect(()=>{console.log(loading)
+  useEffect(()=>{
     setLoading(false)
   },[aiMessages])
   
