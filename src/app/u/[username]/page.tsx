@@ -5,6 +5,8 @@ import axios, { AxiosError } from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea"
+import { BackgroundBeams } from "../../../components/ui/background-beams"
+import { Cover } from "@/components/ui/cover";
 
 type FormData = {
   textArea: string;
@@ -69,11 +71,14 @@ const Page= () => {
 
   return (
     <>
-      <div className="md:py-10 md:px-20 flex flex-col w-screen">
-        <h1 className="text-3xl text-center md:text-4xl font-bold">
+      <div className="md:px-20 flex flex-col w-screen min-h-screen">
+        {/* <h1 className="text-3xl text-center md:text-4xl font-bold">
           Send Messages to unknown usernames !!
-        </h1>
-        <p className="text-xl mt-8">
+        </h1> */}
+        <h1 className="text-4xl md:text-4xl lg:text-6xl font-semibold max-w-7xl mx-auto text-center mt-6 relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
+        Send Messages <br /> to <Cover>unknown usernames !!</Cover>
+      </h1>
+        <p className="text-xl mt-8 mb-2">
           Send anonymous message to <span className="font-bold">{username}</span>
         </p>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -88,13 +93,35 @@ const Page= () => {
 
           <button
             type="submit"
-            className="bg-slate-900 text-white px-5 py-1 rounded-lg"
+            className="bg-slate-900 text-white px-5 py-1 my-6 rounded-lg"
             
           >
             Send
           </button>
         </form>
       </div>
+      <div className="min-h-screen w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
+      <div className="max-w-2xl mx-auto p-4">
+        <h1 className="relative z-10 text-lg md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
+          Join the waitlist
+        </h1>
+        <p></p>
+        <p className="text-neutral-500 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
+          Welcome to MailJet, the best transactional email service on the web.
+          We provide reliable, scalable, and customizable email solutions for
+          your business. Whether you&apos;re sending order confirmations,
+          password reset emails, or promotional campaigns, MailJet has got you
+          covered.
+        </p>
+        <input
+          type="text"
+          placeholder="hi@manuarora.in"
+          className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-full relative z-10 mt-4  bg-neutral-950 placeholder:text-neutral-700"
+        />
+      </div>
+      <BackgroundBeams />
+    </div>
+
     </>
   );
 };
