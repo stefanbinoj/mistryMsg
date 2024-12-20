@@ -4,8 +4,9 @@ import { getServerSession, User } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/options";
 import { NextRequest } from "next/server";
 
-export async function DELETE(request: NextRequest, { params }: { params: { messageId: string } }) {
-    const { messageId } = params;  // Extract the messageId from params
+export async function DELETE(request: NextRequest) {
+    const { searchParams } = new URL(request.url);
+    const messageId = searchParams.get('messageId');
 
     // Connect to the database
     await dbConnect();

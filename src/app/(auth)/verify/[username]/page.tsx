@@ -31,7 +31,7 @@ const Page= () => {
                 title:"success",
                 description:result.data.message
             })
-            router.replace('/sign-in')
+            //router.replace('/sign-in')
 
         } catch (error) {
             const axiosError = error as AxiosError<ApiResponse>;
