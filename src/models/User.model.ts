@@ -24,7 +24,7 @@ export interface User extends mongoose.Document{
     isVerified:boolean;
     verificationCodeExpiry:Date;
     isAcceptingMessage:boolean;
-    googleId:String;
+    googleId:string;
     messages:Message[]
 }
 

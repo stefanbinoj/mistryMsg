@@ -12,7 +12,7 @@ export const messages = [
       title: "Accidental Host" 
     },
     { 
-      quote: "This part of the app is still classified, or maybe we just forgot to delete it. Either way, you've unlocked a world of mystery and confusion. Proceed with caution... or cookies.", 
+      quote: "This part of the app is still classified, or maybe we just forgot to remove it. Either way, you've unlocked a world of mystery and confusion. Proceed with caution... or cookies.", 
       title: "Architect of Chaos" 
     },
     { 

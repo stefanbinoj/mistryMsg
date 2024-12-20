@@ -16,7 +16,7 @@ export const HoverEffect = ({
 }) => {
   const [AIMessage, setAIMessage] = useQueryState('AIMSG')
 
-  let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const handleAIMessageClicks = (e : any) =>{
     setAIMessage(e.target.innerHTML)
 
